@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 
 const PostCard = ({ id, title, userId, content }) => {
   return (
-    <div className={styles["post-card"]}>
+    <div className={`${styles["post-card"]} ${styles["border-gradient"]}`}>
       <h2>{title}</h2>
       <p>{content}</p>
     </div>

@@ -48,6 +48,7 @@ export default function Home() {
             {posts.map((item) => {
               return (
                 <PostCard
+                  key={item.id}
                   id={item.id}
                   title={item.title}
                   userId={item.userId}
