@@ -1,38 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RTK Query JSON Placeholder Project
 
-## Getting Started
+I built this project to learn about RTK Query which comes as a added feature in Redux Toolkit.
 
-First, run the development server:
+RTK Query helps us fetch data efficiently without writing a lot of handwritten code using asyncThunk and writing extra reducers manually.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+RTK Query provides reusable hooks that help fetch the data, loading state, error , success states from the hook.
+
+Following is an example of how a fetch hook looks like:
+Below we are taking the post id from the search params and sending it to RTKQ Fetch Hook, which returns data, isLoading, isSuccess, isError and error information, which can be destructured.
+
+```javascript
+import { useGetPostQuery } from "@/features/api/apiSlice";
+
+const router = useRouter();
+const { id } = router.query;
+
+const {
+  data: post,
+  isLoading: isPostLoading,
+  isSuccess: isPostSuccess,
+  isError: isPostError,
+  error: postError,
+} = useGetPostQuery(id);
+
+// Handling Loading and Error State
+
+if (isPostLoading) {
+  return <h2>Loading...</h2>;
+} else if (isPostError) {
+  return <h2>An error occured : {postError.message}</h2>;
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Internally RTK Query creates a **_cache key_** for each unique endpoint + arguements combination and stores the data for each cache key separately.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This is extremely useful because when we call the same endpoint with same arguements in a differnt component, the cache key will match for the request and data will be sent to that component from data stored for that cache key, this prevents calling the same api again.
