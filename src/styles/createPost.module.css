@@ -1,3 +1,16 @@
+.create-post {
+  padding: 1rem 0;
+}
+
+.create-post h1 {
+  margin-bottom: 1rem;
+  color: #424242;
+}
+
+.create-post p {
+  margin-bottom: 1rem;
+}
+
 .create-post form {
   display: flex;
   flex-direction: column;
@@ -9,6 +22,10 @@
   border: 1px solid #ddd;
   padding: 1rem;
   margin-bottom: 1rem;
+}
+
+.create-post textarea {
+  resize: none;
 }
 
 .create-post button {
