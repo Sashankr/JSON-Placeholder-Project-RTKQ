@@ -1,0 +1,21 @@
+.navbar {
+  background: #e2e2e2;
+  position: sticky;
+  top: 0;
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 1rem;
+  margin: unset;
+  padding: 1rem;
+  padding-left: 0;
+  font-weight: 500;
+}
+
+.navbar ul li:hover {
+  color: #743ad5;
+  cursor: pointer;
+  transition: 0.4s ease;
+}

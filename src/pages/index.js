@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.css";
 import { useGetPostsQuery } from "@/features/api/apiSlice";
 import { Skeleton } from "@mui/material";
 import PostCard from "@/components/PostCard";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const {
@@ -42,8 +43,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <Navbar />
         <div className={styles.container}>
-          <h1>My Blog</h1>
+          <h1 className={styles["home-heading"]}>My Blog</h1>
           <section className={styles["posts-container"]}>
             {posts.map((item) => {
               return (

@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useGetPostQuery } from "@/features/api/apiSlice";
+import styles from "./styles.module.css";
 
 const PostDetails = (props) => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const PostDetails = (props) => {
   }
 
   return (
-    <div>
+    <div className={styles["post-details"]}>
       <h1>{post.title}</h1>
       <p>{post.body}</p>
     </div>
