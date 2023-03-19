@@ -3,6 +3,7 @@ import globalStyle from "@/styles/Home.module.css";
 import styles from "@/styles/createPost.module.css";
 import Navbar from "@/components/Navbar";
 import { useAddNewPostMutation } from "@/features/api/apiSlice";
+import { toast } from "react-hot-toast";
 
 const initialValues = {
   title: "",
@@ -30,12 +31,27 @@ const createPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const loadingPost = toast.loading("Creating your post...", {
+      position: "bottom-center",
+    });
+
     if (canSave) {
       try {
         await addNewPost({ title, body, useId }).unwrap();
         setValues(initialValues);
+        toast.dismiss(loadingPost);
+        toast.success("New Post Created", {
+          duration: 4000,
+          position: "bottom-center",
+        });
       } catch (err) {
         console.error("Failed to save post", err);
+        toast.dismiss(loadingPost);
+
+        toast.error(err, {
+          duration: 4000,
+          position: "bottom-center",
+        });
       }
     }
   };
